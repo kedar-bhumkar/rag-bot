@@ -1,0 +1,18 @@
+﻿Concept,Notes
+User is unable to log into the patient portal,"Follow the below steps
+1. Check if a valid  'userId' has been provided by the user. If not available prompt the user. Do not proceed further
+2. Check inside the patient  portal access-control-list if this user has been added
+3. If not added, add the userID to this list
+4. Inform the user to check if they can access the patient portal"
+User cannot access Identity API,"Follow the below steps
+1. Grab the userId of this user
+2. Check inside the  Identity API access-control-list if this user has been added
+3. If not added, add the userID to this list
+4. Inform the user to check if they can access the  Identity API"
+User cannot reset their password,"Follow the below steps
+Inform the user to dial 1-800-232-4516 to speak with support team"
+How can get help on travel related queries,For travel related querues chat with customer support on TravelHelp chat line
+How can get help on billing issues,For any billing issues pls join the weekly zoom call at 9pm CST on wednesdays
+I need help with moving stuff ,To seek help in moving visit the Facilities mgmt office located on 3rd floow of MN101 building 
+My computer has stopped working,Put in a ticket in Incident mgmt system
+I need to add a new feature that impacts different teams,Create an AHA request on the business portal

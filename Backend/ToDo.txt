@@ -1,0 +1,2 @@
+Memory support
+Load vectors from filesystem
