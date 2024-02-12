@@ -46,8 +46,8 @@ function invokeBot(msgText) {
   fetch_resp = fetch(`${endpoint}`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json', // Set the content type based on your API requirements
-      // Add any additional headers if needed
+      'Content-Type': 'application/json', 
+      'userId':'mandar.bhumkar@gmail.com'
     },
     // Convert the data object to JSON and send it in the request body
     body: JSON.stringify(data)

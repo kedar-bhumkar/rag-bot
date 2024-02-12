@@ -11,10 +11,19 @@ from langchain.agents import AgentExecutor
 from function_def import *
 from prompt import *
 from indexer import *
+MEMORY_KEY = "chat_history"
 
-
-def chat(vector, user_input):
-
+cache ={}
+def chat(vector, userId, user_input):
+    chat_history = []
+    
+    if userId not in cache:
+        cache[userId]= []
+    else:
+        chat_history =  cache.get(userId)
+    
+    print('cache -' , cache)
+    
     llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
     tools = [checkUserExitsIinACL, addUserInACL]
 
@@ -23,7 +32,8 @@ def chat(vector, user_input):
             (
                 "system",
                 CUSTOMER_SUPPORT_AGENT,
-            ),        
+            ),
+            MessagesPlaceholder(variable_name=MEMORY_KEY),        
             ("user", "Question from the user : {input}."),
             MessagesPlaceholder(variable_name="agent_scratchpad"),
         ]
@@ -36,7 +46,8 @@ def chat(vector, user_input):
             "input": lambda x: x["input"],
             "agent_scratchpad": lambda x: format_to_openai_tool_messages(
                 x["intermediate_steps"]
-            )
+            ),
+        "chat_history": lambda x: x["chat_history"],
 
         }
         | prompt
@@ -47,6 +58,14 @@ def chat(vector, user_input):
     agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
     context = getContext(vector, user_input)
     print("Bot context - " + context)
-    result = agent_executor.invoke({"input": "User Question-" + user_input + "Provided Context -" + context})
+    print("chat history" , chat_history)
+    result = agent_executor.invoke({"input": "User Question-" + user_input + "Provided Context -" + context, "chat_history": chat_history})
+    chat_history.extend(
+        [
+            HumanMessage(content=user_input),
+            AIMessage(content=result["output"]),
+        ]
+    )    
+    cache[userId]= chat_history
 
     return result

@@ -1,8 +1,10 @@
 from typing import Union
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from pydantic import BaseModel
-from bot_agent_with_no_memory_api_ready import *
+from bot_agent_with_memory_api_ready import *
 import json
+import time
+
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from langchain_community.document_loaders.csv_loader import CSVLoader
@@ -33,16 +35,28 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+@app.middleware("http")
+async def add_process_time_header(request: Request, call_next):
+    start_time = time.time()
+    response = await call_next(request)
+    process_time = time.time() - start_time
+    response.headers["X-Process-Time"] = str(process_time)
+    print(f"Request took {process_time} secs to complete")
+    return response
+
 class Message(BaseModel):
     msg: str
 
 
 @app.post("/chat")
-def update_item( message: Message):    
+def update_item( request:Request, message: Message):    
     print("Inside /chat")
     print("vector = ", vector)
 
-    bot_response = chat(vector, message.msg)            
+    userId = request.headers.get('userId')
+    print('User Id - ' , userId)
+    bot_response = chat(vector, userId, message.msg)            
     return {"bot_response": bot_response['output']}
 
 
