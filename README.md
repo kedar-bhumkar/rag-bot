@@ -6,8 +6,8 @@ pip install -r requirements.txt
 Keys
 ----
 Manually export the below keys before starting the server
-set OPENAI_API_KEY= < your key > (needs paid subscription)
-set COHERE_API_KEY= < your key > (use free trial one)
+- set OPENAI_API_KEY= < your key > (needs paid subscription)
+- set COHERE_API_KEY= < your key > (use free trial one)
 
 
 Server Start Command
