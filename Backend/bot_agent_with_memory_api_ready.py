@@ -57,8 +57,8 @@ def chat( userId, user_input):
 
     agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
     context = getContext( user_input)
-    print("Bot context - " + context)
-    print("chat history" , chat_history)
+    #print("Bot context - " + context)
+    #print("chat history" , chat_history)
     result = agent_executor.invoke({"input": "User Question-" + user_input + "Provided Context -" + context, "chat_history": chat_history})
     chat_history.extend(
         [
