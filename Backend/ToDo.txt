@@ -1,2 +1,19 @@
-Memory support
+Commands
+--------
+uvicorn fast_api_chat_server:app --reload 
+
+Keys
+----
+set OPENAI_API_KEY=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
+set COHERE_API_KEY=ZFko4NTOOTHiAOX4DAMXi9Hikclf3K5mGJvPkAEL
+
+
+ToDo List
+---------
+--Memory support 
 Load vectors from filesystem
+--Reranker
+Hybrid search
+
+
+

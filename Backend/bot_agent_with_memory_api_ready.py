@@ -14,7 +14,7 @@ from indexer import *
 MEMORY_KEY = "chat_history"
 
 cache ={}
-def chat(vector, userId, user_input):
+def chat(vector, sparseIndex, userId, user_input):
     chat_history = []
     
     if userId not in cache:
@@ -56,7 +56,7 @@ def chat(vector, userId, user_input):
     )
 
     agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
-    context = getContext(vector, user_input)
+    context = getContext(vector, sparseIndex, user_input)
     print("Bot context - " + context)
     print("chat history" , chat_history)
     result = agent_executor.invoke({"input": "User Question-" + user_input + "Provided Context -" + context, "chat_history": chat_history})
