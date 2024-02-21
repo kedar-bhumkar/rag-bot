@@ -6,13 +6,10 @@ import time
 
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
-from langchain_community.document_loaders.csv_loader import CSVLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter, CharacterTextSplitter
-from langchain_community.vectorstores import FAISS
-from langchain_openai import OpenAIEmbeddings
-from langchain.retrievers import BM25Retriever
 from constants import *
 from bot_agent_with_memory_api_ready import *
+from vectorBuilder import *
+from sparseIndexBuilder import *
 
 vector = None
 sparseIndex = None
@@ -73,21 +70,5 @@ def update_item( request:Request, message: Message):
     return {"bot_response": bot_response['output']}
 
 
-def buildVectorIndex():
-    global documents
-    print("Building index on server startup ... ")
-    loader = CSVLoader(file_path='./data/support-bot.csv')
-    docs = loader.load()
-    documents = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=0).split_documents(docs)
-    vector = FAISS.from_documents(documents, OpenAIEmbeddings()).as_retriever(search_type="similarity_score_threshold", search_kwargs={"score_threshold": 0.5, "k": 3} )
-    
-    return vector    
 
 
-# BM25 aims to find the best matching documents for a given search query by considering the frequency of terms, their rarity across documents, and adjusting for document length. It strikes a balance between precision and recall in information retrieval systems.
-def buildSparseIndex():
-    print("Building sparse index on server startup ... ")
-    bm25_retriever = BM25Retriever.from_documents(documents) 
-    bm25_retriever.k = 2
-
-    return bm25_retriever

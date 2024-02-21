@@ -6,6 +6,7 @@ from constants import *
 
 
 def getContext(input):
+    #dynamic import - load only after init in parent module
     from fast_api_chat_server import vector, sparseIndex
     print('Recvd input : ', input )  
       
