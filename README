@@ -31,6 +31,6 @@ only csv supported for now. See format in /data
 
 Architecture
 -------------
-<p align="center">
-  <img src="./Frontend/images/arch.png" width="350" alt="accessibility text">
+<p>
+  <img src="./Frontend/images/arch.png" width="350" alt="accessibility text"></img>
 </p>
