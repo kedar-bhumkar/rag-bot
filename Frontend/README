@@ -1,0 +1,11 @@
+Keys
+----
+Manually export the below keys before starting the server
+set OPENAI_API_KEY= <your key>
+set COHERE_API_KEY= <your key>
+
+
+Server Start Command
+--------
+uvicorn fast_api_chat_server:app --reload 
+
