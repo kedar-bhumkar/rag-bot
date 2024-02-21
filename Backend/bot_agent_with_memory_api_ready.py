@@ -10,7 +10,7 @@ from langchain.agents import AgentExecutor
 
 from function_def import *
 from prompt import *
-from indexer import *
+from contextFetcher import *
 MEMORY_KEY = "chat_history"
 
 cache ={}

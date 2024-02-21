@@ -6,30 +6,20 @@ import time
 
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
-from constants import *
+
 from bot_agent_with_memory_api_ready import *
 from vectorBuilder import *
 from sparseIndexBuilder import *
+from retreiverFactory import *
 
-vector = None
-sparseIndex = None
+multi_retriever = None
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    print("Server startup .....")
-    global vector
-    global sparseIndex
-
-    sparseIndex = None
-    print("sparseIndex", sparseIndex)
-
-    vector = buildVectorIndex()
-    print("vector", vector)
-
-    if(ENABLE_HYBRID_SEARCH):
-        sparseIndex = buildSparseIndex()
-    
-    print("sparseIndex ", sparseIndex)
+    print("Server startup .....")    
+    global multi_retriever
+    #build the retreiver pipeline
+    multi_retriever = getRetreiver()
 
     yield
 
@@ -60,7 +50,7 @@ class Message(BaseModel):
 
 
 @app.post("/chat")
-def update_item( request:Request, message: Message):    
+def doChat( request:Request, message: Message):    
     print("Inside /chat")
     
     userId = request.headers.get('userId')
