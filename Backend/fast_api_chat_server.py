@@ -13,8 +13,10 @@ from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings
 from langchain.retrievers import BM25Retriever
 from constants import *
+from bot_agent_with_memory_api_ready import *
 
-
+vector = None
+sparseIndex = None
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -70,7 +72,7 @@ def update_item( request:Request, message: Message):
     print('User Id - ' , userId)
     
     
-    bot_response = chat(vector, sparseIndex, userId, message.msg)            
+    bot_response = chat(userId, message.msg)            
     return {"bot_response": bot_response['output']}
 
 

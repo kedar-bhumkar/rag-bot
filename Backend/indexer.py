@@ -5,11 +5,13 @@ from langchain_community.llms import Cohere
 from langchain.retrievers import EnsembleRetriever
 from constants import *
 
+
 pattern = re.compile(r'Notes:(.*)', re.DOTALL)
 
 
 
-def getContext(vector, sparseIndex, input):
+def getContext(input):
+    from fast_api_chat_server import vector, sparseIndex
     print('Recvd input : ', input )  
       
 
