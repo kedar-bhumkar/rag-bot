@@ -1,0 +1,506 @@
+,Notes
+Geocoding,"Data.com geocoding works only for Acct, Contact and Leads standard address fields.
+It does not work on Person acct.Use Google geocoding for custom objects"
+Security,"When Owner changes on a record then all manual shared are removed. Use a 
+custom sharing reason to prevent this. However 'custom sharing reason' works only
+for custom objects"
+Email,"No limits sent via UI/APEX to individual Contact, Lead, Account and User. 5000 email limit for ext addresses"
+Flows,"Recommend Flow based schedule path over TBW as it goves more precise control : in mins, more 
+integrated with overall flow, advanced capabilities like send email every day"
+Multi-orgs,"Multi -org (additional justification) - Markets growing differently, AUS goes first"
+Security,Records created by Cust commie user cannot be shared internally with sharing - only option is Share group
+Oppty,"Chk discount and other fields on Order 
+- Custom discount field needs to be created on OrderLI, WF to update the Sales price amt which would get reflected on the total Order amt automatically.
+- Oppty LI has a std discount field which updates the Sales price of OLI automatically
+-Oppty does not have a discount field. Hence, we cannot give blanket discount unless done via customization
+quote and Quote Line items have discount fields"
+SSO/OAUTH,ADFS cannot do de-provisioning and cannot connect to multiple ADs
+Security,Data classification can be used for data mgmr reporting/access/compliance needs. Reports can be run on the field metadata
+Survey,"Send surveys via auto response rules on Case creation
+Send surveys via auto support setting config on Case closure
+SurveySubject - Junction object links a survey with a specific record"
+Web to Lead,Lead file attachment - The file attached to Lead is copied to Acct/Contact/Oppty. Note W2L does not support attachments
+Shield,Shield event monitorting can track chnages to attchments (downloads) as well
+Email,"SF Inbox is a tool to integrate SF with Outlook and Gmail. It provides the SF record context within these apps, attaches emails send by them as activities under
+relevant contacts etc. Availabke via HVS"
+SSO/OAUTH,OKTA sync user atributes between SF and LDAP
+Security,"M-D sharing only upto 3 levels, Lookup depth upto 5"
+Security,"Sharing sets are transitive upto 2 levels only. E.g. Obj1.Con = User.Con , Obj1.Obj2.Con = User.Con"
+Public WS,CMS connect can be proposed to enahnce the public WS to have the same branding as the SF org
+Mobile,For mobile publisher why is there a delay? - Bcos SF has to submit the app to Apple/Google
+Email,Setting on a queue itself sends email alert
+Lead,For Lead conversion mention Lead conversion mapping will be defined to map fields to Acct/Contact
+Gov,Tailor the Gov slide by including specific roles under TECH/FUNC stack .
+Security,Ext acct heirarchy has a side effect of original owner losing the sharing on the child objects
+Experience sites,Contract is available for customer community user
+Data,"Assets, Consent mgmt.  are not counted for storage"
+Licenses,"Communities
+All licenses - Assets, Contract, Order, PB (RO), Product (RO), Ext objects, Task (Read only), Sharing set, Knowledge, Canvas (access via profiles in connected app)
+Cust Comm , Plus and Partner - Case, Entitlements, WO, WOLI, Events(RO), SA, Task, Approvals (submit as well as approver)
+Plus and Partner - Reps, Dashboards, Roles, Queues, CaseTeam, Events (RW), TCrM, public groups
+Partner - Campaign, Lead, Oppty, Quote, AcctTeam, OpptyTeam"
+Experience sites,"Most common scenario 
+If case is needed go for CC, if Reps/Dashboard/Roles go for CC+, if sales object go for Partner"
+Automation,Process builder can trigger a flow
+Multi-C,"Dated exchange rates are not used in Forecasting. They support Oppty, Oppty prods, schedules but not other objects. Through apex we can access the table for dated exchange rates and use that for custom objects"
+Lead,"Round robin assignment can be made by defining the NAME field as number. Then a new formula field can bedefined called RoundRobinID = MOD(Name, 3)+1
+Lead assng rules can reference this and assign to specific User. 
+Alternative, custom build or use a AppX app"
+JIT,"CreatedBy user is AutomatedProcess for JIT, the owner could be assigned as part of the apex code by finding via some criterion
+- The API needs the AccountOwnerID or AccountID to provision with success"
+JIT,"Auto prov generally works the other way,OKTA may have this capability, Otherwise in user record creation we can fire a trigger that calls the ESB to do it"
+Email to lead,"NA OOTB, app x apps, email service with InboundEmailHandler apex to create the Leads"
+Security,"When should the owner be changed versus providing access via APEX? - Change owner if we want to give TRANSFER perm, queue is involved, makes logical sense for that
+ user to own the record, that user would be the main person to work on the record going forward, DO NOT change owner if limited access is needed and it is temporary"
+Experience sites,"Q&A, search, FAQs are std components on Exp sites?
+QandA via Chatter Questions, Search is STD, FAQs could be knowledge"
+Experience sites,"How to enable multi-L experience sites? How to surface language selector component? - Supported OOTB by SF, need to define which lang, select default, provide on the page 
+translation or import/export them. Lang selector component is a dropdown"
+Integration,2 way SSL is not possible for external services . Possible via apex invocable method
+Data migration,If EDW is used and the req says to only load X years of data then we can show data > X years is archived straight to the EDW
+Multi-L,"For Multi-L mention TW, Custom labels, VF email templates and OOTB language selector component for commies"
+Security,Conditional sharing via sharing sets is not possible
+Search,Mention SOSL when talking about search
+Limits,"""Roles - 500 max 10k, Territories - 1000 , 10K max with support request upto 100K
+W2L - 500, W2C- 5000
+Bulk API 2.0 - 150M upload, 1TB - download, 10000 batches X 15000
+Role limit in CC+ and Partner commie - 500k
+Digital Eng SMS - Inbound 25 conversations, Outbound -1000 additional by $$$
+PE - 275k/hour publish and 150k/day(4.5M/month) - subscribed via cometD and EMPAPI connectors
+ODATA - 20k/hr callouts Canvas - 5000 calls per day/user
+Files - max No of active licenses * 120MB, mobile-100MB/file, web - 2 GB/file
+Storage - 120MB * no of active licenses
+API calls - 200* no of active licenses"""
+Territory mgmt,"""The territory’s access level is inherited by the parent territories above it in the territory hierarchy. For example, San Francisco (view opportunities) is a child territory of California 
+(view and edit opportunities). A user assigned to California has view access to San Francisco opportunities, not view and edit."""
+Security,"How sharing is done for junction and related objects with commie and internal user? - Apex managed sharing is not available.1) Use without sharing and LWC to show these 
+objects with additional predicate filter to limit visibility for cc user 2)For CC+ we can use apex sharing 3) De-normalize and create redundant lookup to Account/Contact/1st level objects"
+Data,"Can custom/std objects be linked to Products/PB's? PB/Prod/PBE only lookup/ext lookup to STD,EXT,CUST.   STD,EXT and CUST only lookup/indirect lookup to PB/Prod. No 
+option for PBE"
+ODATA,"Can ODATA be used to expose files hosted on a network drive within SF? Can those be downloaded?- No, ODATA shows the name and REST api is used to pull in the actual serialized blob content"
+ENV,"For hotfix check if we can use full copy or partial sandbox - Full makes refresh difficult, partial or dev/dev pro is better"
+Security,Objects owner set to a generic user which has no role would allow sharing computation to be skipped
+Reports,"Alternative - Monthly report per PT - (Alternative) - Batch program to generate a PDF and store on the Contact, send email with link to PT or chatter message"
+Order of Execution,"Load rec, validation rules, bef record save flow, bef rec triggers, duplicate rules, save record, after trigger, assign-escalation-enti rules, workflow, PB, After rec save Flow, Roll up, CBS, commit"
+Data,The Account-contact-relationship object can be augmented with additional fields for adding more functionality
+SSO/OAUTH,Community self reg default option takes just the NAME and EMAIl from the user to self-reg.
+Lightning scheduler,"In LS Work Type Group - Home load, auto loan
+Work type - Appointment template (duration of appt, buffers before /after the appt). It is linked to Work Type Group via a junction object"
+Security(check),"Pricebook - No access , View, Use . note : Use indicates the User can access the PB and cana dd products within it to Oppty. In View they can only view and only add if they have EDIT access on oppty or it is shared manually.
+Apex sharing is not supported. Pricebook needs to be assigned manually
+Product - Pvt, PRO, PRW
+Products only support Guest user sharing rules. Apex sharing is not supported"
+CTI,"What are the risk associated with retiring old CTI? - Old phone number was published and customer have those. New CTI solution should import the phone number. PSTN must have some config to receive calls on old Ph 
+no and route them to new CTI"
+CTI,"On which team is the responsibility of the CTI solution?
+- Depends on the solution. If DE (SF voice) it rests with SF team. If CTI appe xchnage app is used some responsbility on SF team (installing and
+ configuring the adapter). The IVR setup and server setup is outside of SF and another specilaized team will be involved in that need."
+Files,"Files connect (RO OOTB, for write need to use API),"
+SSO/OAUTH,"How does User log into SAP from SF? - Both SF and SAP use Azure AD for identity, link provided on SF to login to SAP, SAP will redirect user to Azure AD, active session detected using cookie, 
+assertion sent to SAP, certificate and assertion validated by SAP and user will get logged in"
+Gov,"Your UI is complex. How do u ensure user is not overwhelmed?- Training, InApp guidance, Train the trainer, special training environement, video guides"
+Gov,"Any special project execution methodology that helps to build complex UI's - W-Agile, Mocks, interafaces created before in waterfall manner"
+Integration,"If Bulk api 2.0 is chnaged to 1.0 what chnages will happen ? - ETL needs to chunk the files and sent, Check status for each file, limit of records processed, session based auth needed (OAUTH not supported)"
+Data,Does WO object work with LS?How? - No. WO is associated with FSL and not LS
+Data (check),"Asset needs Service cloud, but available for all community licenses including external apps"
+Public WS,CMS connect can be used to connect to Drupal and drive the branding on SF side while maintaining the same solution
+Scenario,"The PBE can have a seperate field modelling the assembly/removal daily rate. While saving the Oppty Product, before save (trigger or flow) we can calculate the unit cost = PBE cost + custom field cost"
+Scenario,"Instead of creating future maintaine schedule recods on Product insert, we could run a nightly batch 3 months in advance to schedule the service"
+Public WS,"Salesforce CMS can be used to drive look and feel and branding of the Salesforce app on an external public site
+CMS connect allows us to use CMS content from 3rd party providerrs like Drupal, wordpress into Salesforce or exp sites"
+Help,"In app guidance - show prompts, walkthroughts context sensitive help and training videos to users on app landing or record pages"
+Consent mgmt,SF consent mgmt can be used tocapture consent from the customers. It uses Individual and Authorzation form objects to capture this. Storage is not counted
+Security,"Data classification of fields allow us categorize them via compliance type (GDPR), owner, sensitivity (public, confidential) and field usage (active/inactive)"
+GDPR,"Mention consent mgmt, Platform encryption and data classification"
+Mobile,"Mobile app can be controlled in 3 ways 1) Connected app (Android/IOS) - which users, ip addresses, pin length, locking 2) Mobile app mgmt (MAM) - Paid SF add on with more features 
+like block jailbroken device, minin OS version, remote wipe data . This works at the app level instead of device level 3) Mobile device mgmt suites (MDMs) - for advanced usecases"
+Licenses,FSL needs Service cloud license
+Files,"CRM content is versioned, can be linked to specific records, delivered via a public hsareable link. 
+Chief content are presentations to be shared with customers w/o a need for them to login"
+Reports,"Historical trending reports run only on Oppty, Cases and custom objects"
+Files,Custom fields can be created on ContentVersion and hence for FILES
+Reports,Report on approval process is possible. Need to create a custom report type with Process Instance and Node as joinees
+Security,"ThirdPartyAccountLink A list of third-party account links is generated when users of an organization authenticate using an external Auth. Provider. Use this object to list and revoke a given 
+user's social sign-on connections (such as Facebook©)."
+Security,"How does SF decide when to call create/update user in registration handler?
+When the user logs in for the very first time createuser is called. After this call an entry is made in anObject ThirdpartyAccountLink
+which store the SF_userId, Id of the user in ext system and provider with whom they logged in"
+Reports,"Options to embed SF report/dashboard on a public website 
+Reports API 
+Lightning:out to embed the dashboard in the html page. Auth is done by either JWT (preferred) or OAUTH. 
+Basically access_token is obtained and sent in the lightning:out call In order to auto refresh the dashboard (e.g. a LIVE dashboard need which is shown on a public monitor) use html meta 
+refresh tag or javascript setInterval() and reload() methods"
+Maps,"What is purpose of watchPosition () method of geolocation object of html5?
+The watchPosition method retrieves periodic updates about the current geographic location of the device. The location is expressed as a set of geographic coordinates together with information
+ about heading and speed. The location information is returned in a Position object."
+Mobile,File limit of 100 MB
+Canvas,Events can be raised from Sf and sent to the embedded canvas app and vice versa
+Integration,"ESB usecases : protocol conversion, orchestration , retry mechanism and queueing (PORQ)"
+Data,Skill and SkillUser can be used to model skills requirement
+Risk,"GDPR support : Data classification (type of compliance - PHI/GDPE, owner, field : sensitive/non-sensitive, field : isActive, Consent mgmt., Platform encryption, SF cookie policy"
+Approval,"It can be triggered manually or via Flow, APex. Approvers could be selected manually, predefined (mgr field on User) or selected dynamically by a user lookup field on the record or assigned to a QUEUE
+Approval accept/reject actions can update the record. Approvals could be 'Serial or' or 'Parallel'. Serial - If user 1 approves then user 2 and so on.
+Parallel - Approval request sent to multiple users or queues. Note Either can approve or Unanimous approval (user or queue) could be needed. Separate radio button for this.
+Approvers need to have at least a READ access on the records"
+Case escalation,"The user or queue cannnot be selected dynamically. It can be escalated to a USER, Q, Partner. Escalation time is specified relative to the case creation and status IS NOT CLOSED"
+Canvas,"Signed req and OAUTH can be used for canvas app integration. Signed req is preferred. OUATH is more chatty. SF posts the signed request to the app.
+Users in Saleforce need to be authneticated with the canvas app using OAUTh/uname-passwd or we can chose to not use any auth"
+Reports,"Using lightning:out a Tableau CRM dashboard/Salesforce rep-dashboard can be exposed on an external site. Note authentication is sill needed
+If no auth is needed and dashboard must be available on a public site we need to use HTML/JS+ESB to extract and show data or use native Tableau public urls"
+Flows,"Flow could be invoked via a custom button, quick action (screen flow only) , PB, record changes, schedule"
+Risks slide,"If there is a mobile publisher , then express the delivery risk , playstore can take days and weeks and this can be mitigated by submitting the app early on the schedule.
+If there is canvas integration, then express dependency risk with other system, This can be mitigated by milestones and contract first development
+If there Buy decision , then procurement is a risk If the project deadline is fixed , express the risk for scope of project , handle in governance - Mitigation would be to create MVP , MVP scope is also a risk as it need buyin from all stakeholders.
+If multiple teams are involved in the implementation, express the risk that building the common understanding may be challenging , mitigation steps would be - Schedule common meetings , Organise a clear way of communication and collaboration
+Any explicit risk mentioned in the scenario ---
+Since the XXX would be using the mobile publisher app, there is a delivery risk , the play store and apple store can take days and weeks to get the app live and this can be mitigated by submitting the app early on the schedule.
+Since there is a canvas/or integration between SF and XXX, then there is dependency risk with other system, This can be mitigated by milestones and contract first development
+For the App exchange apps, the procurement of the app licences might take time. This is a delivery risk. This can be mitigated by involvement of sponsors and purchasing the app early on the schedule. Since the project deadline is fixed , there is the risk of missing the deadline due to scope of the project . Mitigation steps would be to create MVP and get buy-in from all the concerned stakeholders for the MVP scope.
+Since multiple teams are involved in the implementation, building the common understanding may be challenging , mitigation steps would be to Schedule common meetings , and Organise a clear way of communication and collaboration
+Since the XXX solution is complex, I propose to do a proof of concept to check feasibility of the solution.
+Any explicit risk mentioned in the scenario"
+Org strategy slide,"I propose a single org because of the following reasons Unified business process , No complexity to support the different business units. Global Reporting Global Case management No regulatory processes
+No limits
+OR I propose to use a multi org because of the following reasons Business process / regional complexity / regulatory needs
+Takeover company runs a SF , Org merge is complex. Existing SF org with a managed package (e.g. HR application with sensitive data)
+Multi language For any custom development I propose to the custom labels and translate the custom labels using translation workbench
+Multi currency"
+Data model slide,"For the first object the owner for this object is XXX
+I have followed the concept of the least privilege so the owd my objects is Private
+For every object This is custom object/ junction / Standard object will be used to model the owner of the object is the OWD is private or public Since it is Large data volume, I suggest following the archive and purge strategy, and storing records only if they are necessary. So the records will be archived to the data warehouse. On top of that I suggest using standard , custom indexes, skinny tables to improve the performance of lists and reports."
+Licenses,SF platform license only allows access to Accounts/Contacts/Custom objects . No other sales/service object
+Licenses,"Common among Sales and Service 
+""Acct/Contact/Leads/Oppty/Case/Order/
+Campaign/Asset
+Products/Pricebooks
+Knowledge (read only)"""
+Licenses,"Only available in Service cloud
+Work order
+Service Contract
+Omni
+Entitlements
+Live agent
+Social cust service starter pack"
+Licenses,"Only available in Sales cloud
+Oppty splits
+Quote
+Contract
+Terr mgmt"
+Data,"Use the multiplying factor 37.9 to compute 5 years of storage directly assuming 10% growth
+Formula : Final number = original number * (1+x)^^n , where x is rate of growth, n are the no of years
+E.g. Final number = 3.5Million * (1+18/100)^5 where x = 18/100 or 18% growth and N = 5 years"
+Licenses,"Add ons : 
+FSL - Service cloud
+Service cloud voice - Service cloud
+Lightning dialer - Sales cloud
+SF Maps - Sales cloud
+Surveys - Sales + service cloud
+LS - Sales + service cloud
+TCRM (growth and Plus) - Sales + service cloud
+DE - Service + sales cloud"
+Security,"GDPR support : Data classification (type of compliance - PHI/GDPR, owner, field : sensitive/non-sensitive, field : isActive, Consent mgmt., Platform encryption, SF cookie policy"
+SSO/OAUTH,"Differences
+SAML - Authentication , XML based, 1 and 2 version
+OAUTH - Authorization, secure access to resources OpenID connect - Federated authentication on top of OAUTh2 , uses JSON ID Token with scopes and endpoint discovery"
+SSO/OAUTH,Login flow could be used to control the max no of concurrent sessions associated with that user
+SSO/OAUTH,"Login discovery is supported for commies as well as for internal SF users. This is done by speifying Page type ->login discovery for both(MyDomain and exp site settings for login)
+
+IDP options visible on the login page could also be defined here"
+SSO/OAUTH,Login discovery - default behavior . Prompt user for email or phone . Send SMS/EMAIL based on which identifier (ph/email) was supplied with verification code. If correct allow login. Handler generated automatically which could be overridden
+SSO/OAUTH,"JIT is done via SAML or OpenID connect through SAML assertion and JWT token respectively. Params are sent via Map<String, String> and Auth.Data object
+For SAML JIT in SF, set the 'user prov flag' on SSO settings . Default SAMLJITHandler or a custom handler can be used for this.
+FOR openID JIT in SF, use the Auth.RegistrationHandler class default or custom for creating users"
+SSO/OAUTH,Custom claims can be used to inckude additional attribs from the User object then those included via STD claims. These are used in openID connect flow
+SSO/OAUTH,Custom OAUTh scopes can be included if the resource server is extrnal. SF std OAUTh scope (E.g. full access) are only applicable for SF data i.e.when SF is also the resource server
+SSO/OAUTH,"OAUTh - Web server, user agent, JWT and SAML bearer flow basic setup
+Setup a connected app on SF, from the API section copy the consumer key and secret and send to the external app
+For Web server flow - send both key and secret , for other just the consumer key is needed
+Note - Consumer key is Client ID - same as Entity ID in SAML SSO, redirect URI - same as ACS URL in SAML SSO"
+SSO/OAUTH,"Connected app API settings section SF can act as a SAML or OpenID Connect Identity provider
+For SF as OIDC IDP the same data integration section of Connected app is used for config. Additional claims, permissions, scopes, ID token config settings are used from that section"
+SSO/OAUTH,"Connected app web app settings section SF as a SAML IDP
+Configure SF as the IDP, send IDP cert to the SP, Define a connected app for SP, In web app setting enable SAML - Put the entity Id and ACS url in there, specify subject type as FederationID
+optional - Verify SAML request, Encrypt SAML assertion"
+SSO/OAUTH,"Connected app Mobile app settings section - It also allows sending native PUSH notifications to the mobile (including custom push notifications), pin protection enable flag, device type allowed (ph, tab)"
+SSO/OAUTH,Connect app Canvas app settings section - main setting is authentication method - signed req or OAUTH
+SSO/OAUTH,"SF SSO settings section from setup
+It is used when Salesforce is SP and needs to use an external IDP which is SAML based. if IDP is OIDC based use Auth providers for set up
+config needed : IDP cert, sign-in url, entity ID, SAML is used"
+SSO/OAUTH,"SF IDP settings section froms etup
+It is used when SF is acting as an IDP which is SAML based. Need SP setup as a connected app"
+SSO/OAUTH,"SSO - SP initiated flow
+3 parties browser, SP and IDP.
+On SP need to setup the IDP login url, IDP cert. ON IDP need to set a connected app (for SF web app with SAML enabled), entity ID and ACS url(redirect to SP url)
+1) Browser req access to SP. SP detects SSO, constructs a SAML request (containing entity ID) and redirects browser to IDP url
+2) Browsers send SAML req to IDP. IDP verifies SAML req , authenticates user (if no active session), constructs a SAML assertion and redirects req to ACS url
+3)Request arrives at SP, SP verifies the assertion , checks if user is not blocked. If found okay, provides access"
+SSO/OAUTH,"SSO - IDP initiated flow
+3 parties browser, SP and IDP.
+On SP need to setup the IDP login url, IDP cert. ON IDP need to set a connected app (for SF web app with SAML enabled), entity ID and ACS url(redirect to SP url)
+1)User clicks SP link on IDP
+2) and 3) as in SP initiated flow"
+SSO/OAUTH,"SSO - OpenID connect flow
+3 parties - Browser, relying party (SF), OIDC provider (Google)
+On RP need to setup : Auth endpoint, Token endpoint, userInfo endpoint, client Id and Client secret. On OIDC setup :  CALLBACK  URL + API section settings
+1)Browser req access to RP. RP detects SSO , constructs a AUTH token req (adds consumer key) and redirects browser to Auth endpoint
+2)OIDC receives request, verfies it, authenticates user, takes consent , constructs AUTH code and redirects browser to redirect url
+3)Auth code response is received by RP is verified, Access token req is constrcuted with Auth code embedded along with consumer key+secret and POSTED to OIDC
+4) OIDC verifies req , constructs the Access token response with ID token containing claims and send it back to RP 5)RP verifies the token . Registration handler is executed. Access provided
+6)Optionally, user endpoint is used to get additional info about the USER"
+Licenses,"For Platform licenses, cases can track internal and employee issues, but should not be used for customer cases. Internal employee users must have a Service Cloud license to interact with external cases."
+SSO/OAUTH,"OAuth- Web server flow
+Exactly same as SSO -openID connect flow. 
+Except use the terms Client server for RP , Auth server for OIDC provider and additional Resource server
+The access token embedded inside the ID token is used to access the protected resource
+
+Cons - Secure client app which can protect the client secret is needed"
+SSO/OAUTH,"OAuth- User agent flow
+Browser , Auth server, Resource sever are involved . No Client app server.
+1) Browser sends access token request to Auth server (client Id included)
+2) User auth and consent happens
+3) Auth server sends back the access token response.(to ACS url)
+4) ID token contaisn access token and us used to access Resources via API
+Cons - Access token visible in url history, cookies needed"
+SSO/OAUTH,"OAuth- JWT bearer flow
+For JWT OAuth flow, select Use Digital Signatures.
+Pre-req
+Set up connected app, upload X.509 certificate to connected app, select - Admin approved users are predefined to access
+1) APP POSTS a Access token request to SF Auth server containing : Client Id, user ID : username , grant-type: JWT-bearer
+2) Auth server returns the Access token response with access token 3)Access token used to access Resource sever using API;s"
+SSO/OAUTH,"OAuth- SAML bearer flow
+
+Pre-req
+Set up connected app, upload X.509 certificate to connected app, select - Admin approved users are predefined to access
+1) Browser POSTS a Access token request to SF Auth server containing : Client Id, user ID : username , grant-type: saml -bearer
+2) Auth server returns the Access token response with access token 
+3)Access token used to access Resource sever using APIs
+
+Uses XML"
+SSO/OAUTH,"Callback url is set in the API settings. The client app sends the redirect URI as  a parameter in the Auth Code request, The redirect URI is matched with this callback URL to prevent arbitrary redirection of response"
+SSO/OAUTH,"Custom attributes : additional attributes can be sent belonging to USER, API, LABEL as part of SAML and/or OAUTH
+When using SAML, attributes are sent as SAML attribute statements. When using OAuth, attributes are available as a custom_attributes object in the user’s Identity URL."
+Data,Contracts or Sales contracts do not have Contract Line items. Those are only for Service Contracts
+Data,"In a M-D relationship , activities tagged to child records are shown on parent too"
+Security,"MD having lots of children will always cause lock contention if usual care is not taken.
+Lookups can cause as well unless clear the value when parent is removed option is selected"
+SSO/OAUTH,Consumer key/secret is used only in OAUTH not in SAML. Consumer key is Client ID - same as Entity ID in SAML SSO
+SSO/OAUTH,Custom attribs on a Connected app are available for both SAML and OIDC based SSO
+Data,"Mass transfer of records only supports Acct, Lead, Service contracts and custom objects"
+Security,"Chk Transfer tab in Core doc
+https://docs.google.com/spreadsheets/d/1FijcNtRIFGwoV3pOnMGRnAWcEBiYo0EFlxB8LIkgyYc/edit#gid=352275737"
+Presentation,"Sys Landscape - Order of flow
+SF box, ESB, ESB security, on-premise applications, ETL data migration, ETL archiving on DW + ODATA back into SF, TCRM, SSO, Communities"
+Presentation,"Intro- Order of flow
+Core bussiness, Goals, Challenges, Risks, Assumptions, Org startegy + MC/ML"
+Community,"If a user doesn’t create a password during self-registration—either because they left the password field blank or your organization customized the self-registration form to omit the password field—
+the CommunitiesSelfRegConfirm page and CommunitiesSelfRegConfirm controller confirm that a password reset email has been sent. Users landing on this page can’t log in until they reset their password."
+SSO/OAUTH,"For canvas apps, consumer secret from the API section of connected app needs to be copied and used inside the app to decode the signed request"
+Marketing,"4 ways to exchange data (via MC connect)
+1) App level - User can operate in SF and access email templates defined in MC via a seperate tab. Add campaign/report and send mass email. View statistics 
+2) Polling - Data streams can poll data from specific objects in SF and process it for further journeys and sends
+3)Journey builder - can be be configured with event src to listen to updates on Salesforce objects and can trigger journeys. Journeys can update SF objects
+4) Triggered sends - Apex code can call MC api directly for sending email/SMS"
+Lightning scheduler,"Multi resource appt scheduling (combo of user + assets) possible - upto 5
+Concurrent scheduling (same slot multiple bookings) possible"
+Survey,"Survey invites can be sent to Leads and Contacts via Flow action : send Survey
+We can specify : Subject (object to link), receipients (response to be linked to a specific user), auth/no auth"
+AppX,"DW examples - Amazon Redshift, Snowflake, MS SQL server stack"
+Reports,"SF maintains 3 months of historical data + current month, 5 snapshots, 5M rows"
+Reports,Joined report can have max 5 sub blocks. The reports need to be linked by a common ID
+Reports,"Reporting snapshot
+
+""Main application is to take snapshots of sumamry reports and 
+save them as rows in a custom object at a defined frequency. 
+Then build a report on top of it""
+If tabular report is used each row is copied as is and offers no real adv"
+Licenses,"All commie users - Prod, PB are RO"
+Security,"Partner super user is for Partner commie, Portal super user is for Customer comm+, delegated admin is for Partner, CC+
+Delegated admin users become Partner super user or Portal super users auto
+Super user enabled on account . Delegated admin perm granted via perm set
+
+Partner super user access applies only to cases, leads, custom objects, and opportunities."
+Data,"reCaptcha can be used to filter spam W2L and W2C, supported by SF"
+Teams,"Account Team - User , Partner user could be added
+Oppty Team - User , Partner user could be added
+Case Team - User , Partner user and CC+ could be added"
+Security,"Use manager groups to share records up the manager chain, this is not the same as role H. usecase : employee review records shared with the immediate manager
+Manager groups need to be shared via sharing rules, apex . RH does not work
+Manager grp name needs to be hardcoded for each user in the sharing rules"
+Security,Grant access using heirarchies only available for custom objects and on public groups
+Security,"Data skew issues : 1)Losing access to a Contact needs scanning of all Contacts for an account to see if implicit parent access needs to be removed
+2)Losing access to a parent would need a removal of access to all children contacts (created due to implicit child access)"
+Security,"True master detail relationships
+Account -> EntitlementOpportunity -> QuoteOpportunity -> Opportunity SplitQuote -> Quote Line ItemWork Order -> Work Order ItemService Contract -> Contract Line Item"
+Security,"Contact, Assets, Order can be made CBP where parent = account
+Contract is always CBP by Account"
+Security,Big Object does not have record sharing or Shield encryption. It does have object level security and field level security.
+Multi-C,"A Pricebook can have multiple currencies. PBE is unique for a PROD and CURR. We do not need to create a PB for each country and each currency. Just one PB for a country is needed. 
+Opportunity default currency controls which PBE entry is add'able in the OLI. 
+Standard PB needs to have prices for products from all currencies added"
+Integration,With PE we do not get response from the system that consumed it. E.g. Id of the new case
+Integration,"Apex REST API : Composite request (25 subrequests) , SObject tree (multiple unrelated recs can be created) , Composite graph (500 subrequests)"
+Security,Only Leads/Cases have Transfer as an option in OWD
+Integration,"S2S has an api limit. No limit on number of orgs to be connected. Some objects are not supported
+S2S cannot send records meeting a filter criterion, all or none"
+SSO/OAUTH,"While drawing the diagram use the correct terms : OAUTH web server flow, JWT bearer flow"
+DE,"Short Code:
+5-6 digit format
+10-500 msgs/sec
+10-16 weeks setup time
+High throughput
+Usage: Send recurring messages and one-time alerts
+Long Code:
+7-15 or standard 10 digit number
+1 - 2 msgs/sec or 15K msgs/month max
+Low throughput
+Minutes setup time
+Usage: Low-volume and personalized communication"
+Community,"The internal users own the accounts for the external users, for CC+ and PC the internal users role owning the acct is the parent of the role given to the external user."
+SSO/OAUTH,If MFA is needed and OKTA is proposed then MFA needs to be enabled on OKTA. It has it's own mobile app which can be used to support MFA
+Data,"While migrating data from ext systems , mention on what basis the de-dup would happen. E.g. Email id, company Name, email, ph 
+Mention external ID would be define to link the SF record to the external system"
+Integration,"Heroku connect exposes Postgres tables as Heroku Ext objects. However, SF Connect brings them as virtual data inside SF using ODATA 4.0"
+Security,"File sharing Private : Only the File owner and Modify all data user can see the file, Privately::Shared - can be seen by any user to whom the file is shared (by link)"
+Data,Current or expected volume = 5M or more.
+Digital Engagement,Phone and email service channels - Recommend SF voice and Email-2-case
+Multi-orgs,If data should not move across a region and we have ESB/TCRM then they need to be instance specific.
+Forecasting,"It is based on dates : Closed date (oppty), Schedule date (Opp item schedule) OR Product date (opp product date) and revenue, quantity or a custom currency/number field of these objects"
+Forecasting,"Stages : pipeline, best case, commit, closed"
+Forecasting,"Types : Opportunity, Product family, Overlay, Oppty splits"
+SSO/OAUTH,Informatica ETL uses OAuth Web server flow to authenticate with SF. Set Refresh token to Never expire.
+Security,Role H : mgr has access to records owned by or 'accessible' to his/her subordinates
+Security,Implicit sharing is access to child for owner of account
+Security,Account owner cannot give MORE access than what he has on child records to the added account team members
+Data,Anytime a machine / part/ sold product is mentioned use ASSETS
+Data,"Work Orders is the central object used to track repairs, perform maintenance activities and other types of service requests that require an on site visit. Work Orders and Work Order Items represent a task or series of tasks that are to be performed and related to an installed Asset."
+Lightning scheduler,"LS is supported only for CC+, Partner commie, Ext apps plus, Guest users"
+Licenses,Use CC+ for roles if Sharing is needed or real roles are required
+Security,View all cases is possible
+Security,"Lightning login
+Passwd free login based on trusted browser/IP. N/A for external users. Needs Authenticator app for approval via PIN or location
+"
+SSO/OAUTH,Community on one SF can act as an IDP for another community on a different SF org or same org
+Data,"CBP only - Contact, Asset, Order (account)  | Campaign Member (Campaign, controlled by Campaign member)"
+Data,"3 types of skews :Account skew (SF needs to check 9999 children to remove access on parent ), Lookup skew (locking issue + index skew. Lookup field has index, the querybusing it becomes non-selective), 
+Ownership skew (perf issue due to massive sharing recalc and potential locking)
+locking + sharing comp if owner changes is common to all"
+Data,WOLi represents specific sub tasks needed to be done as part of the Work Order
+Security,Can a  PC/CC+ users Manually Share record? NO
+Omnichannel,"Supported objects
+Cases
+Chats
+Contact requests
+Leads
+Messaging (Lightning Experience only)
+Orders
+Social posts
+SOS video calls (Salesforce Classic only)
+Swarm requests
+Custom objects that don’t have a master object"
+Data,"Roll up summary fields - Conditional possible, Cannot be used in CBS rules, calculated async, can cause WF rules to fire again"
+Community,"For public sites : Use Exp builder and enable Public access with self reg. For any features like Chatter Q, users would need to register. Rest info can be public and be accessible w/o registration"
+Data,To make calculations easier assume : 1M of records =~2GB of storage
+Data,"4kb per record        Total storage limits - think about when having millions of customer users and person accounts    
+8 mil customer users + 500k partner users = 34gb storage
+"
+Security,"ACR can be used for : CC, CC+ and P"
+Security,"ACDSR not applicable for ASSET. can be used for custom objects + lead, order, account, opportunity, case, Contact
+"
+Security,"External Account Hierarchy  --> CC+/PC - cannot be mixed in hierarchy, Enable mechainsm in Community Settings
+Does not work with Person Account
+Cannot mix CC+ with PC in single hierarchy
+Levels of hierarchy = 5
+Number of Accounts in all External Role Hierarchy in Org = 100k
+Not compatible with Account Role Optimization
+External users cannot manage this hierarchy
+"
+Security,"ACDSR - Use the lookup field to select how the object is shared. For example, if Account To wants to share only their partner users’ owned leads with Account From, use Owner Id in Account To Criteria Field. If Account To wants to share all their account’s leads, the Account To Criteria field value is Partner Account Id."
+Security,"ACDSR - allows conditional sharing via filters
+Share leads that have Northern Trail Outfitters listed as the Partner Account Id and who have 100 employees. Change the Account To Criteria Field value to Partner Account Id and enter the advanced formula, NumberOfEmployees = 100."
+Data,"FilesConnect allows use with  Quip, Google Drive, SharePoint, or Box."
+Data,"External objects cannot be used in TCRM, use src system data directly."
+Security,"The file owner can set the file access permission to: Visible to Anyone With Record Access, Private on records 
+This prevents the default behavior of anyone having access to the record to also see the file.
+https://docs.google.com/document/d/1KPdASOpD-Wxx2F-9-c-evMGX6wL1rmjI6fGv4B8wb_Q/edit"
+Security,"Control Manual Sharing for User Records - OWD settings page has an option to enable/disable manual USER  record sharing
+To remove manual sharing selectively - remove the button from the layout
+"
+Data,"ProfileSkill
+Represents a profile skill, which describes a user’s professional knowledge. This is a global record for the organization, and users are associated through the ProfileSkillUser object.
+This needs a seperate WDC license. "
+Mobile,"Custom notifications can be enabled for PUSH (need android/apple registration and api key to be used on connected app), else they could be subscribed to be displayed on the app notification tray"
+Data,"Schedule object modelling -  Frequency (Once, daily, weekly, monthly etc.), Days (Sun thru Sat), Time , timezone "
+Reports,"TCRM needs CC+ and PC and Ext apps plus , not for CC"
+Data,"MD always locked, Lookup is locked provided Clear value is not selected
+Note : System waits for 10s for the lock to be released before timing out and  showing the row lock error "
+Community,"Ext id - text, email, number . optionally unique
+Std index - ID, name, lookup/MD, createdDate, lastModifieldDate, email, external ID
+Custom index - Text, number, email, picklist  NOT on LTA, encrypted fields, non deterministic formula fields"
+Public WS,Lightning out can be used for unauth users as well
+Security,"External Delegated Admin access to Delegated Accounts
+ the managing user of an external managed account can manage permission sets for other users, reset passwords, activate, deactivate, or add members to the target account
+Accounts cannot be created"
+Security,Screen flow can be run in system context with/without sharing
+Security,"CC - Acct/own Contact Read only , need sharing set Write to edit contact
+CC+ and Partner - Acct and all contacts Read only "
+Mobile,"SF mobile app support commie
+Yes, through the url switcher, Need API enabled perm, Guest users are not supported"
+Data,"For master-detail relationship fields, the Sharing Setting attribute determines the sharing access that users must have to a master record in order to create, edit, or delete its associated detail records."
+Data,In Q/A when talking about the juntion object make sure to mention lookup if proposing lookup as SF assumes 2 Master detail relationships 
+Security,"TCRM and SF connectivity - local connection with local SF org (no auth), external connection for non local SF org (username/password)"
+Presentation,"Consider indirect syncs that are needed as part of the solution E.g. Product master sync from ERP to SF
+"
+Presnetation,Auth provider - mention reghandlers
+Gov,"Gauge the impact of GOV on the enitre solution. READ the GOV in first pass and mark the critical points like delivery in 4 months
+Tie Gov (project deadline) with suggested options - E.g. XfilesPRO for a 4 month project, instead ask them to buy more Chatter FILE licenses and attach files
+Barcode scanner for AppX can be proposed if Gov dicates project needs to be released in 4 months
+
+"
+ENV,"Master branch is created. Developer branch is forked from it. feature branches are forked from Developer. After work is done Feature branches  get nerged into Dev. From Dev release branch is created and code is deployed to 
+QA. Bug fixes are done in Dev and pushed to release. Eventually release is merged to Master and Master code is deployed to PROD. Release is merged back on Dev as Dev might have proceeded further. Urgent bug fixes 
+are done in Hotfix which gets merged into Master and Dev. The Release branches are short lived for the release. The master branch is tagged for the release and release branch deleted"
+Security,CC+ and PC need at least 1 role
+Security,ACR allows access to account for external users
+Data,Opp  Line items are synced only on Quote creation automatically
+Sharing,"If person accounts are enabled, the organization-wide default sharing must be set in one of the following ways. Contacts are set to Controlled by Parent, or accounts and contacts are both set to Private.
+Sharing set are possible on PA"
+Security,"General security mechanisms
+W2L - captcha - supported OOTB
+ESB/ETL - JWT
+TCRM - local connection (native no sec), external SF - username/passwd , external apps - OAUTH
+Mobile - layered SAML/OIDC - Oauth user agent flow"
+Security,"Canvas apps that need to authneticate the user (with an external IDP or internally) the user would be redirected to the IDP and the original signed request context is lost. In such cases when the user is redirected back to Canvas app
+we can use the Canvas SDK methos refreshSignedRequest() to get the signed request on demand from Sf and resume the flow.
+repost() can be used as well"
+Security,"Hybrid mobile apps use a OAUTH hybrid token flow. Main difference
+response_code=hybrid token 
+Along with access token, session Ids are returned for requested domain scopes (lightning, VF, content). These are stored in cookies
+They can be used to access SF UI components from within the hybrid app
+"
+Risks slide,"Website development - Separate workstream with additional resources, included in CoE
+6 month release for US - Define MVP, buy vs build
+Regulatory requirement - Include compliance team in COE; define regression strategy to ensure meeting requirements
+Mobile publisher - Set up Separate workstream with additional resources, included in CoE, Submit asset to SF early, Plan time for iOS and Android approval
+
+
+ "
+FIles,"ContentDocument - FileName, File ext, ContentSize
+ContentDocumentVersion - Contents (blob), FirstPublishLocationId, File extension, FileType
+ContentDocLink - LinkedEntityId (to whom it is shared), Visibility"
+Knowledge,"It takes data storage , custom fields are supported, articles based on case Id, title, description can be shown via custom button +JS
+Security access - via sharing on KAV objects and data categories. Data categories controls filter ans query results of KB when sharing is done
+Revise - https://drive.google.com/drive/u/0/folders/1BDP6VmPtpF5FflXuIyg_MHhwJJaBTTSC
+              https://docs.google.com/document/d/1D5FjftDG5tdANEK8qDTPD50H9lSv_MIGb46CdqfTZFg/edit#"
+Integration,"PE's have a publish behavior 
+- Publish immediately (published even if parent txn rolls back)
+- Publish after commit"
+Security,We can add Roles in a public group and use Public groups in CBS for efficient sharing. Using this prevents the extra work needed to add one user at a time to the public group
+Security,OBS - Acct owned by members of a public grp -> (share with) other members of the public group
+Community,"Start with OOTB layouts, Screen flow and then propose LWC if there is a mention of good UX or gaps with OOTB"
+Data,"Ext id - text, email, number . optionally unique
+Std index - ID, name, lookup/MD, createdDate, lastModifieldDate, email
+Custom index - Text, number, email, picklist  NOT on LTA, encrypted fields, non deterministic formula fields"
+Data,OLI needs Pricebook in addition to Products. For each multi-c a separate PB would need to be created
+Integration,Ext services can be invoked from APEX as they are just invocable methods
+Data,Big Object async SOQL works like a reporting snapshot- data is extracted and put in a custom object on which reporting could be done
+Automation,"Einstein bots can be used to execute apex actions base don user choices (e.g. reset password).

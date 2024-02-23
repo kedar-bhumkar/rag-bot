@@ -38,8 +38,10 @@ def chat( userId, user_input):
             MessagesPlaceholder(variable_name="agent_scratchpad"),
         ]
     )
-
-    llm_with_tools = llm.bind_tools(tools)
+    if(ENABLE_FUNCTION_CALLING):
+        llm_with_tools = llm.bind_tools(tools)
+    else:
+        llm_with_tools = llm    
 
     agent = (
         {
