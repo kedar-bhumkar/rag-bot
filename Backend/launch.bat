@@ -1,0 +1,3 @@
+set OPENAI_API_KEY=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
+set COHERE_API_KEY=TkoxfLdUGTX0FSAt4aoG4850yxbsCmu3HPBU8qDB
+uvicorn fast_api_chat_server:app --reload
