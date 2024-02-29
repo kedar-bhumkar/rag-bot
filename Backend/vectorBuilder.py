@@ -29,4 +29,3 @@ def load_docs():
         return RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=0).split_documents(docs)
 
 
-buildVectorIndex()
